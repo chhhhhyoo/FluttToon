@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const twentyFiveMin = 1500;
   int totalSeconds = 10;
   bool isRunning = false;
   int totalPomo = 0;
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         totalPomo += 1;
         isRunning = false;
-        totalSeconds = 1500;
+        totalSeconds = twentyFiveMin;
       });
       timer.cancel();
     } else {
@@ -43,6 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  String format(int seconds) {
+    var duration = Duration(seconds: seconds);
+    return duration.toString().split(".").first.substring(2, 7);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                '$totalSeconds',
+                format(totalSeconds),
                 style: TextStyle(
                     color: Theme.of(context).cardColor,
-                    fontSize: 65,
+                    fontSize: 80,
                     fontWeight: FontWeight.w600),
               ),
             ),
